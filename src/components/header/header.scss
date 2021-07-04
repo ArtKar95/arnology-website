@@ -1,0 +1,227 @@
+@import '../../styles/common.scss';
+@import '../../styles/variables.scss';
+
+%Dropdown-root {
+  .Dropdown-control {
+    background-color: transparent;
+    border: none;
+    color: $secondaryWhite;
+
+    .Dropdown-placeholder {
+      font-size: 1.6rem;
+      line-height: 1.63;
+    }
+    .Dropdown-arrow-wrapper {
+      .Dropdown-arrow {
+        right: 30%;
+        top: 40%;
+        border-color: $secondaryWhite transparent transparent;
+        border-width: 7px 7px 0;
+      }
+    }
+  }
+  .Dropdown-menu {
+    width: 7.8rem;
+    text-align: center;
+    border: none;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    .Dropdown-option {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.header__container {
+  display: grid;
+  grid-template-columns: 1.3fr 1.5fr;
+  position: absolute;
+  z-index: 1;
+  left: 13.3vw;
+  right: 14.1vw;
+  top: 5%;
+  gap: 7vw;
+  a {
+    svg {
+      width: 15vw;
+    }
+  }
+  &__last {
+    display: grid;
+    grid-template-columns: 1.5fr 1.5fr 1.5fr;
+    align-items: center;
+    gap: 2vw;
+    justify-items: flex-end;
+
+    .Dropdown__root__dark {
+      @extend %Dropdown-root;
+    }
+    .Dropdown__root__light {
+      @extend %Dropdown-root;
+      .Dropdown-control {
+        color: $primaryDarkGrey;
+        .Dropdown-arrow-wrapper {
+          .Dropdown-arrow {
+            border-color: $primaryDarkGrey transparent transparent;
+          }
+        }
+      }
+    }
+  }
+
+  &__mobile {
+    display: none;
+  }
+  &__mobile__menu {
+    overflow-y: auto;
+    padding-bottom: 10%;
+    &--logo {
+      display: none;
+    }
+    &__hide {
+      display: none;
+    }
+  }
+
+  &__button--dark {
+    cursor: pointer;
+    @include actionButtons(
+      1px solid $primaryLightGreenBlue,
+      $primaryLightGreenBlue,
+      transparent,
+      5px,
+      48px,
+      17.5rem
+    );
+  }
+  &__button--light {
+    cursor: pointer;
+    @include actionButtons(
+      1px solid $secondaryWhite,
+      $secondaryWhite,
+      $primaryLightGreenBlue,
+      5px,
+      48px,
+      17.5rem
+    );
+  }
+}
+
+.is-open .Dropdown-arrow {
+  border-width: 7px 7px 0 !important;
+  transform: rotate(180deg);
+}
+.is-open .Dropdown-control {
+  &:before {
+    display: block !important;
+    content: '';
+    position: absolute;
+    right: 12%;
+    top: 65%;
+    width: 0;
+    height: 0;
+    border-top: 0px solid transparent;
+    border-right: 0.95rem solid #ffffff;
+    border-bottom: 2rem solid transparent;
+    transform: rotate(90deg);
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .header__container {
+    gap: 2vw;
+  }
+}
+
+@media screen and (max-width: 1165px) {
+  .header__container {
+    &__button--dark {
+      @include actionButtons(
+        1px solid $secondaryWhite,
+        $secondaryWhite,
+        $primaryLightGreenBlue,
+        5px,
+        48px,
+        14rem
+      );
+    }
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header__container {
+    grid-auto-flow: column;
+    justify-content: space-between;
+    grid-template-columns: unset;
+    a {
+      svg {
+        width: 23vw;
+      }
+    }
+    &__last {
+      display: none;
+    }
+
+    &__mobile {
+      display: block;
+
+      .hamburger-react {
+        left: unset;
+        right: unset;
+        z-index: 2;
+
+        div {
+          div {
+            &:hover {
+              background-color: $primaryLightGreenBlue;
+            }
+          }
+        }
+      }
+    }
+
+    &__mobile__menu {
+      display: block;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1;
+      background-color: #111517;
+      height: 100%;
+      width: 100%;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      &--logo {
+        position: absolute;
+        display: block;
+        top: 5%;
+        left: 5%;
+      }
+    }
+
+    &__mobile__menu__hide {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__container {
+    left: 5.3vw;
+    right: 5.1vw;
+    a {
+      svg {
+        width: 16rem;
+      }
+    }
+    // &__mobile__menu {
+    //   &--logo {
+    //     width: 15rem;
+    //   }
+    //   .hamburger-react {
+    //     left: 5rem;
+    //   }
+    // }
+  }
+}
